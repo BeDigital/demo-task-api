@@ -1,0 +1,21 @@
+meta {
+  name: List All Tasks
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/tasks
+  body: none
+  auth: none
+}
+
+params:query {
+  ~completed: true
+  ~priority: high
+  ~search: API
+}
+
+docs {
+  List all tasks. Optional query params: completed (true/false), priority (high/medium/low), search (text)
+}

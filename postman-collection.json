@@ -1,0 +1,218 @@
+{
+  "info": {
+    "name": "Demo Task API",
+    "description": "A demo REST API for testing with Bruno or Postman",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3001"
+    },
+    {
+      "key": "apiKey",
+      "value": "demo-key-12345"
+    }
+  ],
+  "item": [
+    {
+      "name": "Public Endpoints",
+      "item": [
+        {
+          "name": "API Info",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api",
+            "description": "Get API information and available endpoints"
+          }
+        },
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/health",
+            "description": "Check API health status"
+          }
+        },
+        {
+          "name": "Echo GET",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/echo?message=Hello&foo=bar",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "echo"],
+              "query": [
+                { "key": "message", "value": "Hello" },
+                { "key": "foo", "value": "bar" }
+              ]
+            },
+            "description": "Echo service - returns query params and headers"
+          }
+        },
+        {
+          "name": "Echo POST",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/echo",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"test\": \"data\",\n  \"nested\": { \"value\": 123 },\n  \"array\": [1, 2, 3]\n}"
+            },
+            "description": "Echo service - echoes back your request body"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tasks CRUD",
+      "item": [
+        {
+          "name": "List All Tasks",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/tasks",
+            "description": "List all tasks"
+          }
+        },
+        {
+          "name": "List Tasks (Filtered)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/tasks?completed=false&priority=high",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tasks"],
+              "query": [
+                { "key": "completed", "value": "false" },
+                { "key": "priority", "value": "high" }
+              ]
+            },
+            "description": "List tasks with filters"
+          }
+        },
+        {
+          "name": "Get Task by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/tasks/1",
+            "description": "Get a single task by ID"
+          }
+        },
+        {
+          "name": "Create Task",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/tasks",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"New Task from Postman\",\n  \"description\": \"Testing POST request\",\n  \"priority\": \"high\"\n}"
+            },
+            "description": "Create a new task"
+          }
+        },
+        {
+          "name": "Update Task (PUT)",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/tasks/1",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Task\",\n  \"description\": \"Updated via PUT\",\n  \"completed\": true,\n  \"priority\": \"low\"\n}"
+            },
+            "description": "Full update of a task"
+          }
+        },
+        {
+          "name": "Toggle Task (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/tasks/1/toggle",
+            "description": "Toggle task completion status"
+          }
+        },
+        {
+          "name": "Delete Task",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/tasks/3",
+            "description": "Delete a task by ID"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Protected Endpoints",
+      "item": [
+        {
+          "name": "Stats (Auth Required)",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/protected/stats",
+            "header": [
+              { "key": "x-api-key", "value": "{{apiKey}}" }
+            ],
+            "description": "Get task statistics (requires API key)"
+          }
+        },
+        {
+          "name": "Stats (No Auth - Fails)",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/protected/stats",
+            "description": "Test 401 Unauthorized response"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Test Response Codes",
+      "item": [
+        {
+          "name": "Test 200 OK",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/test/response/200"
+          }
+        },
+        {
+          "name": "Test 201 Created",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/test/response/201"
+          }
+        },
+        {
+          "name": "Test 400 Bad Request",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/test/response/400"
+          }
+        },
+        {
+          "name": "Test 404 Not Found",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/test/response/404"
+          }
+        },
+        {
+          "name": "Test 500 Server Error",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/test/response/500"
+          }
+        }
+      ]
+    }
+  ]
+}

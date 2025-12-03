@@ -1,0 +1,16 @@
+meta {
+  name: Test Response Code
+  type: http
+  seq: 12
+}
+
+post {
+  url: {{baseUrl}}/api/test/response/404
+  body: none
+  auth: none
+}
+
+docs {
+  Test different HTTP response codes. 
+  Change the code in URL to: 200, 201, 400, 401, 403, 404, or 500
+}

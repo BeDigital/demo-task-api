@@ -1,0 +1,20 @@
+meta {
+  name: Protected Stats (Auth Required)
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{baseUrl}}/api/protected/stats
+  body: none
+  auth: none
+}
+
+headers {
+  x-api-key: {{apiKey}}
+}
+
+docs {
+  Get task statistics. Requires x-api-key header for authentication.
+  Use 'demo-key-12345' as the API key.
+}

@@ -1,0 +1,29 @@
+meta {
+  name: Echo (POST)
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{baseUrl}}/api/echo
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "test": "data",
+    "nested": {
+      "value": 123
+    },
+    "array": [1, 2, 3]
+  }
+}
+
+docs {
+  Echo service - echoes back your request body. Great for testing POST data.
+}

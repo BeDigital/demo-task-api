@@ -1,0 +1,15 @@
+meta {
+  name: Echo (GET)
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{baseUrl}}/api/echo?message=Hello from Bruno&foo=bar
+  body: none
+  auth: none
+}
+
+docs {
+  Echo service - returns query params and headers. Great for testing.
+}
